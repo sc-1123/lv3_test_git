@@ -6,12 +6,18 @@ class BinaryTreeNode:
         self.data = data
         self.left = l
         self.right = r
-
+    def clone(self):
+        new_node = BinaryTreeNode(self.data)
+        if self.left:
+            new_node.left=self.left.clone()
+        if self.right:
+            new_node.right=self.right.clone()
+        return new_node
 
 class BinaryTree:
+    root:BinaryTreeNode
     def __init__(self, node):
         self.root = node
-
     def insert_left(self, value):
         node = BinaryTreeNode(value)
         if self.root is None:
@@ -138,6 +144,12 @@ class BinaryTree:
             lines, _, _, _ = display_helper(self.root)
             for line in lines:
                 print(line)
+    def clone(self):
+        if self.root:
+            return BinaryTree(self.root.clone())
+        else:
+            return BinaryTree(None)
+
 
 
 
@@ -155,3 +167,4 @@ print(tree.get_height())
 
 print(tree.is_balanced())
 print(tree.display())
+tree.clone().display()
